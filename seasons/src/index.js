@@ -1,20 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-// const App = () => {
-//   window.navigator.geolocation.getCurrentPosition(
-//     (position) => console.log(position),
-//     (err) => console.log(err)
-//   );
-//   return <div>Hey there!</div>;
-// };
+import SeasonDetail from "./SeasonDetail";
+import Spinner from "./Spinner";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  state = { lat: null, errorMessage: "" }; //  Babel transpiles to constructor init behind the scenes
 
-    //  This is the SINGLE ONLY TIME we assign a value directly to the state var - at init
-    this.state = { lat: null, errorMessage: "" };
+  componentDidMount() {
+    console.log("My component was rendered to the screen");
 
     window.navigator.geolocation.getCurrentPosition(
       (position) => this.setState({ lat: position.coords.latitude }), //  This is how we update state after init - always with setState
@@ -22,17 +15,27 @@ class App extends React.Component {
     );
   }
 
-  //  render() is mandatory to define in React
-  render() {
+  //  render() is called just before
+  componentDidUpdate() {
+    console.log("My component was just updated - it rerendered!");
+  }
+
+  //  Helper method to avoid conditionals in render()
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
 
     if (!this.state.errorMessage && this.state.lat) {
-      return <div>Latitude: {this.state.lat}</div>;
+      return <SeasonDetail lat={this.state.lat} />;
     }
 
-    return <div>Loading!</div>;
+    return <Spinner message="Please accept the location request" />;
+  }
+
+  //  render() is mandatory to define in React
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 
