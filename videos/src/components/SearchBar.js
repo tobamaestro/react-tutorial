@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault();
 
-    //  TODO: call parent prop function to search videos
+    this.props.onSearch(this.state.term);
   };
 
   render() {
