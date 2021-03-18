@@ -54,7 +54,6 @@ const App = () => {
           selected={selected}
           onSelectedChange={setSelected}
         />
-        ;
       </Route>
       <Route path="/translate">
         <Translate />;
