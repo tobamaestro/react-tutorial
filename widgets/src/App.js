@@ -42,10 +42,10 @@ const App = () => {
     <div>
       <Header />
       <Route path="/">
-        <Accordion items={items} />;
+        <Accordion items={items} />
       </Route>
       <Route path="/list">
-        <Search />;
+        <Search />
       </Route>
       <Route path="/dropdown">
         <Dropdown
@@ -56,7 +56,7 @@ const App = () => {
         />
       </Route>
       <Route path="/translate">
-        <Translate />;
+        <Translate />
       </Route>
     </div>
   );
